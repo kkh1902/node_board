@@ -15,9 +15,9 @@ router.post("/post", board.postCreate);
 router.get("/post/:post_id", board.postInquery);
 
 /* 글 수정 */
-router.patch("/post", board.postUpdate);
+router.patch("/post/:post_id", board.postUpdate);
 
 /* 글 삭제 */
-router.delete("/post", board.postDelete);
+router.delete("/post/:post_id", board.postDelete);
 
 module.exports = router;
