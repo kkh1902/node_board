@@ -15,16 +15,21 @@ class board {
 
     async postCreate(req, res) {
         try {
-            const writer_id = req.body.writer_id;
-            const post_title = req.body.post_title;
-            const post_content = req.body.post_content;
-
+            const { writer_id, post_title, post_content } = req.body;
             const post = await pool.query(
                 "insert into posts(writer_id, post_title, post_content) values (?, ?, ?) ",
                 [writer_id, post_title, post_content]
             );
 
             return res.send("success");
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
+
+    async postPage(req, res) {
+        try {
+            return res.render("write");
         } catch (error) {
             return res.status(500).json(error);
         }
@@ -53,6 +58,15 @@ class board {
             );
             const post = await pool.query("select * from posts ");
             return res.send(post[0]);
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+    }
+
+    async postModify(req, res) {
+        try {
+            const { post_id } = req.params;
+            return res.render("modify");
         } catch (error) {
             return res.status(500).json(error);
         }
